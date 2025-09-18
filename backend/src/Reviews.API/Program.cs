@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Reviews.API;
 using Reviews.Application;
 using Reviews.Infrastructure;
@@ -23,7 +24,13 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-
+    
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ReviewsDbContext>();
+        db.Database.Migrate();
+    }
+    
     app.MapControllers();
     app.UseHttpsRedirection();
     app.UseCors();

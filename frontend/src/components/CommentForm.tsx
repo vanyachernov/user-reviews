@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import { createComment } from "../api/comments.ts";
 
 interface Props {
   parentId?: string;
   onCommentAdded: () => void;
 }
-
-const SITE_KEY = "6LdHYc0rAAAAANUNBCGnRCOkC3O1xv44zJDCk1BM";
 
 export const CommentForm: React.FC<Props> = ({ parentId, onCommentAdded }) => {
   const [userName, setUserName] = useState("");
@@ -15,24 +14,16 @@ export const CommentForm: React.FC<Props> = ({ parentId, onCommentAdded }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // if (!captchaToken) {
-    //   alert("Please complete CAPTCHA!");
-    //   return;
-    // }
 
     try {
-      await fetch("http://localhost:5178/api/comments/Create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName, email, text, parentId }),
-      });
+      await createComment({ userName, email, text, parentId });
       setUserName("");
       setEmail("");
       setText("");
       onCommentAdded();
     } catch (err) {
       console.error(err);
-      alert("Error adding comment");
+      console.log("Error adding comment. Please, try again!");
     }
   };
 

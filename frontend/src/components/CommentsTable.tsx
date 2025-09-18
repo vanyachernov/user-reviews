@@ -7,11 +7,11 @@ interface Props {
 }
 
 export const CommentsTable: React.FC<Props> = ({ onCommentAdded }) => {
-  const [comments, setComments] = useState<CommentDto[]>([]);
   const [page, setPage] = useState(1);
-  const pageSize = 25;
+  const [comments, setComments] = useState<CommentDto[]>([]);
   const [sortField, setSortField] = useState<keyof CommentDto>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const pageSize = 25;
 
   useEffect(() => {
     (async () => {
@@ -64,7 +64,7 @@ export const CommentsTable: React.FC<Props> = ({ onCommentAdded }) => {
       </table>
       <div className="pagination">
         <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>Назад</button>
-        <span> Сторінка {page} </span>
+        <span>Сторінка {page} </span>
         <button disabled={comments.length < pageSize} onClick={() => setPage(p => p + 1)}>Далі</button>
       </div>
     </div>

@@ -1,9 +1,13 @@
 import axios from "axios";
 import type { CommentDto } from "../dtos/CommentDto";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export async function getComments(page: number, pageSize: number) {
-  const res = await axios.get<CommentDto[]>(`http://localhost:5178/api/comments/GetAll?page=${page}&pageSize=${pageSize}`);
-  return res.data;
+  const result = await axios.get<CommentDto[]>(
+    `${API_URL}/comments/GetAll?page=${page}&pageSize=${pageSize}`
+  );
+  return result.data;
 }
 
 export async function createComment(data: {
@@ -12,8 +16,8 @@ export async function createComment(data: {
   homepage?: string;
   parentId?: string;
   text: string;
-  captchaToken: string;
+  captchaToken?: string;
 }) {
-  const res = await axios.post<CommentDto>("http://localhost:5178/api/comments/Create", data);
-  return res.data;
+  const result = await axios.post<CommentDto>(`${API_URL}/comments/Create`, data);
+  return result.data;
 }
