@@ -1,7 +1,10 @@
+using Reviews.API;
+
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddApi();
 }
 
 var app = builder.Build();
