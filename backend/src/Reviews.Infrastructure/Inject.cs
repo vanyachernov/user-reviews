@@ -1,7 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Reviews.Application.CommentDirectory;
+using Reviews.Application.Services;
 using Reviews.Application.UserDirectory;
 using Reviews.Infrastructure.Repositories;
+using Reviews.Infrastructure.Services;
 
 namespace Reviews.Infrastructure;
 
@@ -12,6 +14,8 @@ public static class Inject
         services.AddScoped<ICommentRepository, CommentRepository>();
         
         services.AddScoped<IUserRepository, UserRepository>();
+        
+        services.AddScoped<ICaptchaService, CaptchaService>();
         
         return services;
     }

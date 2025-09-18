@@ -7,4 +7,5 @@ public class AddCommentRequest
     public string? Homepage { get; set; }
     public Guid? ParentId { get; set; }
     public string Text { get; set; } = null!;
+    public string CaptchaToken { get; set; } = null!;
 }

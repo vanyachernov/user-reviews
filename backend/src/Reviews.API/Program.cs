@@ -1,4 +1,5 @@
 using Reviews.API;
+using Reviews.Application;
 using Reviews.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
     
     builder.Services
         .AddApi()
+        .AddApplication()
         .AddInfrastructure();
 }
 

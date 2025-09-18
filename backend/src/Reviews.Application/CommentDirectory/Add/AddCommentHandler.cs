@@ -1,4 +1,5 @@
 using Reviews.Application.DTOs;
+using Reviews.Application.Services;
 using Reviews.Application.UserDirectory;
 using Reviews.Domain.Models;
 
@@ -8,15 +9,24 @@ public class AddCommentHandler
 {
     private readonly ICommentRepository _commentRepository;
     private readonly IUserRepository _userRepository;
+    private readonly ICaptchaService _captchaService;
 
-    public AddCommentHandler(ICommentRepository commentRepository, IUserRepository userRepository)
+    public AddCommentHandler(ICommentRepository commentRepository, IUserRepository userRepository, ICaptchaService captchaService)
     {
         _commentRepository = commentRepository;
         _userRepository = userRepository;
+        _captchaService = captchaService;
     }
 
     public async Task<CommentDto> Handle(AddCommentRequest request)
     {
+        var isValidCaptcha = await _captchaService.VerifyAsync(request.CaptchaToken);
+        
+        if (!isValidCaptcha)
+        {
+            throw new UnauthorizedAccessException("CAPTCHA verification failed! Please, try again.");
+        }
+        
         var user = await _userRepository.GetByEmailAsync(request.Email);
         
         if (user == null)
@@ -27,6 +37,7 @@ public class AddCommentHandler
                 Email = request.Email,
                 Homepage = request.Homepage
             };
+            
             await _userRepository.AddAsync(user);
         }
 

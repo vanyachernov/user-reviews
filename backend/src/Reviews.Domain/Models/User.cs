@@ -14,5 +14,5 @@ public class User
     [Url]
     public string? Homepage { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public List<Comment> Comments { get; set; } = [];
 }

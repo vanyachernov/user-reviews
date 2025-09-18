@@ -8,7 +8,7 @@ public class Comment
     public Guid Id { get; set; } = Guid.NewGuid();
     public User User { get; set; } = null!;
     public Comment? Parent { get; set; }
-    public ICollection<Comment> Replies { get; set; } = new List<Comment>();
+    public List<Comment> Replies { get; set; } = [];
     [Required]
     public string Text { get; set; } = null!;
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;

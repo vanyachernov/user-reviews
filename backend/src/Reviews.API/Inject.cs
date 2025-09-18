@@ -8,10 +8,6 @@ public static class Inject
     public static IServiceCollection AddApi(this IServiceCollection services)
     {
         DotNetEnv.Env.Load();
-        
-        // var jwtSecurityKey = Environment.GetEnvironmentVariable("JWT_SECRET");
-        // var jwtValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER");
-        // var jwtValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE");
 
         services.AddDbContext<ReviewsDbContext>(options =>
         {

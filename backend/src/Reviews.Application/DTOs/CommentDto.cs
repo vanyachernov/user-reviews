@@ -8,4 +8,5 @@ public class CommentDto
     public string? Homepage { get; set; }
     public string Text { get; set; } = null!;
     public DateTimeOffset CreatedAt { get; set; }
+    public List<CommentDto> Replies { get; set; } = [];
 }
