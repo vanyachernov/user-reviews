@@ -1,5 +1,4 @@
 using System.Net.Http.Json;
-using Microsoft.Extensions.Configuration;
 using Reviews.Application.CommentDirectory.Add;
 using Reviews.Application.Services;
 
@@ -10,7 +9,7 @@ public class CaptchaService : ICaptchaService
     private readonly HttpClient _httpClient;
     private readonly string _secretKey;
 
-    public CaptchaService(HttpClient httpClient, IConfiguration config)
+    public CaptchaService(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _secretKey = Environment.GetEnvironmentVariable("CAPTCHA_SECRET_KEY") ?? "secretKey";

@@ -15,7 +15,7 @@ public static class Inject
         
         services.AddScoped<IUserRepository, UserRepository>();
         
-        services.AddScoped<ICaptchaService, CaptchaService>();
+        services.AddHttpClient<ICaptchaService, CaptchaService>();
         
         return services;
     }
