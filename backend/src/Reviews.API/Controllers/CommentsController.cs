@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Reviews.Application.AttachmentDirectory.Add;
+using Reviews.Application.Attachments;
 using Reviews.Application.CommentDirectory.Add;
 using Reviews.Application.CommentDirectory.Delete;
 using Reviews.Application.CommentDirectory.Get;
@@ -7,7 +9,7 @@ using Reviews.Application.DTOs;
 namespace Reviews.API.Controllers;
 
 [ApiController]
-[Route("api/[action]")]
+[Route("api/[controller]/[action]")]
 public class CommentsController : ControllerBase
 {
     /// <summary>
@@ -54,4 +56,38 @@ public class CommentsController : ControllerBase
 
         return NoContent();
     }
+    
+    /// <summary>
+    /// Upload attachment for comment.
+    /// </summary>
+    [HttpPost("{commentId:guid}/attachments")]
+    public async Task<IActionResult> UploadAttachment(
+        [FromRoute] Guid commentId,
+        [FromForm] FileUploadDto fileModel,
+        [FromServices] AddAttachmentHandler handler)
+    {
+        var dto = await handler.Handle(commentId, fileModel.File);
+        
+        return Ok(dto);
+    }
+    
+    /// <summary>
+    /// Delete attachment from comment.
+    /// </summary>
+    [HttpDelete("{commentId:guid}/attachments/{attachmentId:guid}")]
+    public async Task<IActionResult> DeleteAttachment(
+        [FromRoute] Guid commentId,
+        [FromRoute] Guid attachmentId,
+        [FromServices] DeleteAttachmentHandler handler)
+    {
+        var success = await handler.Handle(commentId, attachmentId);
+        
+        if (!success)
+        {
+            return NotFound();
+        }
+        
+        return NoContent();
+    }
+
 }

@@ -20,12 +20,12 @@ public class AddCommentHandler
 
     public async Task<CommentDto> Handle(AddCommentRequest request)
     {
-        var isValidCaptcha = await _captchaService.VerifyAsync(request.CaptchaToken);
-        
-        if (!isValidCaptcha)
-        {
-            throw new UnauthorizedAccessException("CAPTCHA verification failed! Please, try again.");
-        }
+        // var isValidCaptcha = await _captchaService.VerifyAsync(request.CaptchaToken);
+        //
+        // if (!isValidCaptcha)
+        // {
+        //     throw new UnauthorizedAccessException("CAPTCHA verification failed! Please, try again.");
+        // }
         
         var user = await _userRepository.GetByEmailAsync(request.Email);
         

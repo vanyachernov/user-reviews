@@ -9,4 +9,5 @@ public class CommentDto
     public string Text { get; set; } = null!;
     public DateTimeOffset CreatedAt { get; set; }
     public List<CommentDto> Replies { get; set; } = [];
+    public List<AttachmentDto> Attachments { get; set; } = [];
 }

@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
         .AddApi()
         .AddApplication()
         .AddInfrastructure();
+
+    builder.Services.AddCors();
 }
 
 var app = builder.Build();
@@ -24,5 +26,6 @@ var app = builder.Build();
 
     app.MapControllers();
     app.UseHttpsRedirection();
+    app.UseCors();
     app.Run();
 }

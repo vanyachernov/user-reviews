@@ -18,7 +18,15 @@ public static class CommentMapper
             Replies = comment.Replies
                 .Where(r => !r.IsDeleted)
                 .Select(ToDto)
-                .ToList()
+                .ToList(),
+            Attachments = comment.Attachments.Select(a => new AttachmentDto
+            {
+                Id = a.Id,
+                FileName = a.FileName,
+                FilePath = a.FilePath,
+                MimeType = a.MimeType,
+                SizeBytes = a.SizeBytes
+            }).ToList()
         };
     }
 }

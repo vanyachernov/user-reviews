@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Reviews.Application.AttachmentDirectory;
 using Reviews.Application.CommentDirectory;
 using Reviews.Application.Services;
 using Reviews.Application.UserDirectory;
@@ -16,6 +17,8 @@ public static class Inject
         services.AddScoped<IUserRepository, UserRepository>();
         
         services.AddHttpClient<ICaptchaService, CaptchaService>();
+        
+        services.AddHttpClient<IAttachmentRepository, AttachmentRepository>();
         
         return services;
     }

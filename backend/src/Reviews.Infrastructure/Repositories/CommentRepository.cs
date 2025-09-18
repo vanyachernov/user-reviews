@@ -23,6 +23,7 @@ public class CommentRepository : ICommentRepository
     {
         return await dbContext.Comments
             .Include(c => c.User)
+            .Include(c => c.Attachments)
             .Where(c => c.ParentId == null && !c.IsDeleted)
             .OrderByDescending(c => c.CreatedAt)
             .Skip((page - 1) * pageSize)
@@ -35,6 +36,7 @@ public class CommentRepository : ICommentRepository
         return await dbContext.Comments
             .Where(c => c.ParentId == null && !c.IsDeleted)
             .Include(c => c.User)
+            .Include(c => c.Attachments)
             .Include(c => c.Replies)
                 .ThenInclude(r => r.User)
             .OrderByDescending(c => c.CreatedAt)
@@ -47,6 +49,7 @@ public class CommentRepository : ICommentRepository
     {
         return await dbContext.Comments
             .Include(c => c.User)
+            .Include(c => c.Attachments)
             .Include(c => c.Replies)
                 .ThenInclude(r => r.User)
             .FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);

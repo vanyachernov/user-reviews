@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Reviews.Application.AttachmentDirectory.Add;
+using Reviews.Application.Attachments;
 using Reviews.Application.CommentDirectory.Add;
 using Reviews.Application.CommentDirectory.Delete;
 using Reviews.Application.CommentDirectory.Get;
@@ -14,6 +16,10 @@ public static class Inject
         services.AddScoped<DeleteCommentHandler>();
         
         services.AddScoped<GetCommentsHandler>();
+        
+        services.AddScoped<AddAttachmentHandler>();
+        
+        services.AddScoped<DeleteAttachmentHandler>();
         
         return services;
     }
