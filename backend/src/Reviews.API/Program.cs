@@ -1,7 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using Reviews.API;
+using Reviews.Application;
+using Reviews.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+    builder.Services.AddControllers();
+    
+    builder.Services
+        .AddApi()
+        .AddApplication()
+        .AddInfrastructure();
+
+    builder.Services.AddCors();
 }
 
 var app = builder.Build();
@@ -11,7 +24,15 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-
+    
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ReviewsDbContext>();
+        db.Database.Migrate();
+    }
+    
+    app.MapControllers();
     app.UseHttpsRedirection();
+    app.UseCors();
     app.Run();
 }
