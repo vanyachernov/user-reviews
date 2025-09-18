@@ -34,6 +34,9 @@ cd <PROJECT_FOLDER>
 
 Enter next command to the terminal:
 
+1) Go to **./backend/src/Reviews.API** and create .env file based on .env.example
+
+2)
 
 ```bash
 docker-compose up -d --build
