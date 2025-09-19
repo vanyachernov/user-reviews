@@ -23,7 +23,7 @@ public static class Inject
                 + $"Database={dbName};"
                 + $"Username={dbUser};"
                 + $"Password={dbPassword};"
-                + "SSL Mode=Disable;";
+                + "SSL Mode=Require;";
 
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         });
